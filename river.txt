@@ -2,8 +2,8 @@ sunfish
 shad
 carp
 bass
+carp
 bullhead
-carp
 walleye
-catfish
 carp
+catfish
