@@ -12,7 +12,7 @@ int main() {
         std::cin >> FishName;
         RiverFile.open("../river.txt");
         while(!RiverFile.eof()){
-            RiverFile >> TmpString;
+            std::getline(RiverFile,TmpString);
             if(TmpString == FishName){
                 std::cout << " You have caught a fish! " << std::endl;
                 BasketFile.open("../basket.txt",std::ios::app);
@@ -29,7 +29,7 @@ int main() {
     std::cout << "Your basket: " << std::endl;
     std::ifstream FileToPrint("../basket.txt");
     while (!FileToPrint.eof()){
-        FileToPrint >> TmpString;
+        std::getline(FileToPrint,TmpString);
         std::cout << TmpString << std::endl;
     }
     FileToPrint.close();
