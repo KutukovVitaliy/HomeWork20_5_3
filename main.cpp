@@ -3,35 +3,47 @@
 #include <string>
 
 int main() {
-    bool EndTheGame = false;
-    std::string FishName, ContinueGame, TmpString;
-    std::ifstream RiverFile;
-    std::ofstream BasketFile;
+    bool endTheGame = false;
+    std::string fishName, continueGame, tmpString;
+    std::ifstream riverFile;
+    std::ofstream basketFile;
     do{
         std::cout << "Enter the fish: ";
-        std::cin >> FishName;
-        RiverFile.open("../river.txt");
-        while(!RiverFile.eof()){
-            std::getline(RiverFile,TmpString);
-            if(TmpString == FishName){
+        std::cin >> fishName;
+        riverFile.open("../river.txt");
+        if(!riverFile.is_open()){
+            std::cout << "Can't open file river.txt" << std::endl;
+            return -1;
+        }
+        while(!riverFile.eof()){
+            std::getline(riverFile, tmpString);
+            if(tmpString == fishName){
                 std::cout << " You have caught a fish! " << std::endl;
-                BasketFile.open("../basket.txt",std::ios::app);
-                BasketFile << FishName << std::endl;
-                BasketFile.close();
+                basketFile.open("../basket.txt", std::ios::app);
+                if(!basketFile.is_open()){
+                    std::cout << "Can't open file basket.txt!" << std::endl;
+                    return -1;
+                }
+                basketFile << fishName << std::endl;
+                basketFile.close();
             }
         }
-        RiverFile.close();
+        riverFile.close();
         std::cout << "Continue the game? (Yes/No): ";
-        std::cin >> ContinueGame;
-        if(ContinueGame == "Yes") EndTheGame = false;
-        else EndTheGame = true;
-    }while(!EndTheGame);
+        std::cin >> continueGame;
+        if(continueGame == "Yes") endTheGame = false;
+        else endTheGame = true;
+    }while(!endTheGame);
     std::cout << "Your basket: " << std::endl;
-    std::ifstream FileToPrint("../basket.txt");
-    while (!FileToPrint.eof()){
-        std::getline(FileToPrint,TmpString);
-        std::cout << TmpString << std::endl;
+    std::ifstream fileToPrint("../basket.txt");
+    if(!fileToPrint.is_open()){
+        std::cout << "Can't open file basket.txt!" << std::endl;
+        return -1;
     }
-    FileToPrint.close();
+    while (!fileToPrint.eof()){
+        std::getline(fileToPrint, tmpString);
+        std::cout << tmpString << std::endl;
+    }
+    fileToPrint.close();
     return 0;
 }
